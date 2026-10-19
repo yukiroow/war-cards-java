@@ -11,9 +11,7 @@ import java.util.StringTokenizer;
 
 /**
  * TODO
- * 1. Objects (Player, Card, Deck) and Enums (Rank, Suit)
- * 2. Static Methods (File loading, Deck Shuffling, Deck Splitting)
- * 3. Game Methods
+ * 1. Game Methods
  */
 public class App {
     static void main() {
@@ -31,7 +29,6 @@ public class App {
 
         System.out.println("Original Deck: \n" + originalDeck.getCards());
 
-        // TODO: Print Deck
         // TODO: Shuffle Deck
         // TODO: Print Shuffled Deck
         // TODO: Distribute Cards
