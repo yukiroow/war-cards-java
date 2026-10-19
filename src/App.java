@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 public class App {
     static void main() {
         int qtyPlayer, qtyShuffle;
-        ArrayList<Player> players;
+        ArrayList<Player> players = new ArrayList<>();
         Deck deck;
         int round = 1;
         boolean winner = false;
@@ -26,17 +26,22 @@ public class App {
 
         deck = parseFileToObj(new File("./src/resources/input.txt"));
 
-        qtyPlayer = readGameParams("Enter number of players (2-8): ", 1);
-        qtyShuffle = readGameParams("Enter number of shuffles: ", 2);
+        qtyPlayer = readGameSetting("Enter number of players (2-8): ", 1);
+        qtyShuffle = readGameSetting("Enter number of shuffles: ", 2);
 
         Deck.shuffleDeck(deck, qtyShuffle);
+
+        ArrayList<Deck> decks = Deck.splitDeck(deck, qtyPlayer);
+        for (int i = 0; i < decks.size(); i++) {
+            players.add(new Player((i + 1), decks.get(i)));
+        }
 
         while (winner) {
             System.out.println("Round " + round);
         }
     }
 
-    static int readGameParams(String prompt, int type) {
+    static int readGameSetting(String prompt, int type) {
         Scanner keyInput = new Scanner(System.in);
         int qty;
         while (true) {
@@ -75,10 +80,9 @@ public class App {
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
             Card tempCard;
-            // Suit
             Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
-            // Rank
             String tempRank = innerTokenizer.nextToken();
+
             try {
                 Rank rankVal = Rank.fromInt(Integer.parseInt(tempRank));
                 tempCard = new Card(rankVal, suitVal);
