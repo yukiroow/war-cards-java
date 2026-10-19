@@ -19,11 +19,11 @@ public class Player {
         return deck;
     }
 
-    Card playCard() {
+    public Card playCard() {
         return deck.getTopCard();
     }
 
-    void collectCards(ArrayList<Card> cards) {
+    public void collectCards(ArrayList<Card> cards) {
         deck.addToBottom(cards);
     }
 }

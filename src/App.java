@@ -2,6 +2,7 @@ import enums.Rank;
 import enums.Suit;
 import models.Card;
 import models.Deck;
+import models.Player;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,23 +16,20 @@ import java.util.StringTokenizer;
  */
 public class App {
     static void main() {
-        int qtyPlayer, qtyShuffle, round = 1;
+        int qtyPlayer, qtyShuffle;
+        ArrayList<Player> players;
+        Deck deck;
+        int round = 1;
         boolean winner = false;
-        Deck originalDeck;
 
         System.out.println("Welcome to Ward Cards!");
 
-        originalDeck = parseFileToObj(new File("./src/resources/input.txt"));
+        deck = parseFileToObj(new File("./src/resources/input.txt"));
+
         qtyPlayer = readGameParams("Enter number of players (2-8): ", 1);
         qtyShuffle = readGameParams("Enter number of shuffles: ", 2);
 
-//        System.out.println("Settings: " + qtyPlayer + " Players and " + qtyShuffle + " Shuffles.");
-
-        System.out.println("Original Deck: \n" + originalDeck.getCards());
-
-        // TODO: Shuffle Deck
-        // TODO: Print Shuffled Deck
-        // TODO: Distribute Cards
+        Deck.shuffleDeck(deck, qtyShuffle);
 
         while (winner) {
             System.out.println("Round " + round);
@@ -74,7 +72,7 @@ public class App {
             System.exit(0);
         }
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
-        while(tokenizer.hasMoreTokens()) {
+        while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
             Card tempCard;
             // Suit

@@ -10,11 +10,15 @@ public class Deck {
         this.cards = cards;
     }
 
-    static void shuffleDeck(Deck deck) {
-        Collections.shuffle(deck.getCards());
+    public static void shuffleDeck(Deck deck, int qtyShuffle) {
+        System.out.println("Original Deck: \n" + deck.getCards());
+        for (int i = 0; i < qtyShuffle - 1; i++) {
+            Collections.shuffle(deck.getCards());
+        }
+        System.out.println("Shuffled Deck: \n" + deck.getCards());
     }
 
-    static ArrayList<Deck> splitDeck(Deck deck, int qtyPlayers) {
+    public static ArrayList<Deck> splitDeck(Deck deck, int qtyPlayers) {
         ArrayList<Deck> splitDecks = new ArrayList<>();
         int deckSize = deck.getCards().size() / qtyPlayers;
         int currCard = 0;
