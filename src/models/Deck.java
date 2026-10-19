@@ -12,7 +12,7 @@ public class Deck {
 
     public static void shuffleDeck(Deck deck, int qtyShuffle) {
         System.out.println("Original Deck: \n" + deck.getCards());
-        for (int i = 0; i < qtyShuffle - 1; i++) {
+        for (int i = 0; i < qtyShuffle; i++) {
             Collections.shuffle(deck.getCards());
         }
         System.out.println("Shuffled Deck: \n" + deck.getCards());
@@ -22,9 +22,9 @@ public class Deck {
         ArrayList<Deck> splitDecks = new ArrayList<>();
         int deckSize = deck.getCards().size() / qtyPlayers;
         int currCard = 0;
-        for (int i = 0; i < qtyPlayers - 1; i++) {
+        for (int i = 0; i < qtyPlayers; i++) {
             ArrayList<Card> tempDeck = new ArrayList<>();
-            for (int j = 0; j < deckSize - 1; j++) {
+            for (int j = 0; j < deckSize; j++) {
                 tempDeck.add(deck.getCards().get(currCard));
                 currCard++;
             }
