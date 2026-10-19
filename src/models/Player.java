@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Player {
     private int playerNo;
     private Deck deck;
@@ -17,6 +19,11 @@ public class Player {
         return deck;
     }
 
-    // TODO: Card playCard()
-    // TODO: void collectCards(List<Card> cards)
+    Card playCard() {
+        return deck.getTopCard();
+    }
+
+    void collectCards(ArrayList<Card> cards) {
+        deck.addToBottom(cards);
+    }
 }
