@@ -43,7 +43,7 @@ public class Deck {
 
     public void addToBottom(ArrayList<Card> cards) {
         for (Card card : cards) {
-            cards.addFirst(card);
+            this.cards.addLast(card);
         }
     }
 }
