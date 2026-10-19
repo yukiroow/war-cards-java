@@ -27,7 +27,11 @@ public class Card {
 
     @Override
     public String toString() {
-        return suit + "-" + (rank.getValue() < 11 ? rank.getValue() : rank);
+        return (suit.getValue() > 2 ? "\u001B[41m\u001B[30m" : "\u001B[40m")
+                + suit
+                + "-"
+                + (rank.getValue() < 11 ? rank.getValue() : rank)
+                + "\u001B[0m";
     }
 
     public int getRank() {
