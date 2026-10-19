@@ -12,4 +12,13 @@ public enum Rank {
     public int getValue() {
         return this.value;
     }
+
+    public static Rank fromInt(int val) {
+        for (Rank rank: Rank.values()) {
+            if (rank.value == val) {
+                return rank;
+            }
+        }
+        return null;
+    }
 }

@@ -1,8 +1,13 @@
+import enums.Rank;
+import enums.Suit;
+import models.Card;
+import models.Deck;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * TODO
@@ -14,18 +19,24 @@ public class App {
     static void main() {
         int qtyPlayer, qtyShuffle, round = 1;
         boolean winner = false;
+        Deck originalDeck;
+
         System.out.println("Welcome to Ward Cards!");
+
+        originalDeck = parseFileToObj(new File("./src/resources/input.txt"));
         qtyPlayer = readGameParams("Enter number of players (2-8): ", 1);
         qtyShuffle = readGameParams("Enter number of shuffles: ", 2);
 
-        System.out.println("Settings: " + qtyPlayer + " Players and " + qtyShuffle + " Shuffles.");
+//        System.out.println("Settings: " + qtyPlayer + " Players and " + qtyShuffle + " Shuffles.");
+
+        System.out.println("Original Deck: \n" + originalDeck.getCards());
 
         // TODO: Print Deck
         // TODO: Shuffle Deck
         // TODO: Print Shuffled Deck
         // TODO: Distribute Cards
 
-        while(winner) {
+        while (winner) {
             System.out.println("Round " + round);
         }
     }
@@ -54,21 +65,34 @@ public class App {
         return qty;
     }
 
-    // TODO: Return Deck object
-    static void parseFileToObj(File inputFile) {
+    static Deck parseFileToObj(File inputFile) {
         Scanner scanner;
+        ArrayList<Card> parsedCards = new ArrayList<>();
+        String rawFile = "";
         try {
-            scanner = new Scanner(new File("./src/resources/input.txt"));
-
-            String rawFile = scanner.nextLine();
-
-            ArrayList<String> splitRawFile = new ArrayList<>(List.of(rawFile.split(",")));
-
-            System.out.println(splitRawFile);
-
-            // TODO: Parse splitRawFile items to Card Objects
+            scanner = new Scanner(inputFile);
+            rawFile = scanner.nextLine();
         } catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
+            System.exit(0);
         }
+        StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
+        while(tokenizer.hasMoreTokens()) {
+            StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
+            Card tempCard;
+            // Suit
+            Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
+            // Rank
+            String tempRank = innerTokenizer.nextToken();
+            try {
+                Rank rankVal = Rank.fromInt(Integer.parseInt(tempRank));
+                tempCard = new Card(rankVal, suitVal);
+            } catch (NumberFormatException nfe) {
+                tempCard = new Card(Rank.valueOf(tempRank), suitVal);
+            }
+            parsedCards.add(tempCard);
+        }
+
+        return new Deck(parsedCards);
     }
 }

@@ -6,7 +6,7 @@ public class Player {
     private int playerNo;
     private Deck deck;
 
-    Player(int playerNo, Deck deck) {
+    public Player(int playerNo, Deck deck) {
         this.playerNo = playerNo;
         this.deck = deck;
     }
