@@ -12,6 +12,19 @@ public class Card {
         this.suit = suit;
     }
 
+    static int compare(Card a, Card b) {
+        if (a.getRank() > b.getRank()) {
+            return 1;
+        } else if (a.getRank() < b.getRank()) {
+            return -1;
+        }
+
+        if (a.getSuit() > b.getSuit()) {
+            return 1;
+        }
+        return -1;
+    }
+
     public int getRank() {
         return rank.getValue();
     }
