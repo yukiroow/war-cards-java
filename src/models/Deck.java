@@ -1,25 +1,44 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.Collections;
 
 public class Deck {
-    private final Stack<Card> cards;
+    private final ArrayList<Card> cards;
 
-    Deck(Stack<Card> cards) {
+    Deck(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
-    public Stack<Card> getCards() {
+    static void shuffleDeck(Deck deck) {
+        Collections.shuffle(deck.getCards());
+    }
+
+    static ArrayList<Deck> splitDeck(Deck deck, int qtyPlayers) {
+        ArrayList<Deck> splitDecks = new ArrayList<>();
+        int deckSize = deck.getCards().size() / qtyPlayers;
+        int currCard = 0;
+        for (int i = 0; i < qtyPlayers - 1; i++) {
+            ArrayList<Card> tempDeck = new ArrayList<>();
+            for (int j = 0; j < deckSize - 1; j++) {
+                tempDeck.add(deck.getCards().get(currCard));
+                currCard++;
+            }
+            splitDecks.add(new Deck(tempDeck));
+        }
+        return splitDecks;
+    }
+
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
     public Card getTopCard() {
-        return cards.pop();
+        return cards.removeFirst();
     }
 
     public void addToBottom(ArrayList<Card> cards) {
-        for (Card card: cards) {
+        for (Card card : cards) {
             cards.addFirst(card);
         }
     }
