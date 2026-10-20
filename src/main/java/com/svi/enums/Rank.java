@@ -1,4 +1,4 @@
-package enums;
+package com.svi.enums;
 
 
 public enum Rank {

@@ -4,7 +4,7 @@
 
 This repository contains my CLI implementation of the War Cards Game to be submitted as a deliverable for the Java Training Session.
 
-This project is built with `Java JDK 25.0.4` on the `IntelliJ Build System`.
+This project is written with `Java JDK 25.0.4` and built using `Maven`.
 
 ## Original Specification
 

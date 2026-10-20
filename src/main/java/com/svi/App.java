@@ -1,9 +1,11 @@
+package com.svi;
+
 import module java.base;
-import enums.Rank;
-import enums.Suit;
-import models.Card;
-import models.Deck;
-import models.Player;
+import com.svi.enums.Rank;
+import com.svi.enums.Suit;
+import com.svi.models.Card;
+import com.svi.models.Deck;
+import com.svi.models.Player;
 
 public class App {
     static void main() {
@@ -13,15 +15,15 @@ public class App {
         int round = 1;
         boolean winner = false;
 
-        IO.println("-------------------------------------------------------");
-        IO.println("Welcome to Ward Cards!");
-        IO.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Welcome to Ward Cards!");
+        System.out.println("-------------------------------------------------------");
 
         deck = parseFileToObj(App.class.getResourceAsStream("/input.txt"));
 
         qtyPlayer = readGameSetting("Enter number of players (2-8): ", 1);
         qtyShuffle = readGameSetting("Enter number of shuffles: ", 2);
-        IO.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------");
 
         Deck.shuffleDeck(deck, qtyShuffle);
         ArrayList<Deck> decks = Deck.splitDeck(deck, qtyPlayer);
@@ -33,15 +35,15 @@ public class App {
             Map<Integer, Card> laidCards = new HashMap<>();
             ArrayList<Card> collectableCards = new ArrayList<>();
 
-            IO.println("\n-------------------------------------------------------");
-            IO.println("Round " + round);
+            System.out.println("\n-------------------------------------------------------");
+            System.out.println("Round " + round);
             for (int i = 0; i < players.size(); i++) {
                 laidCards.put(i, players.get(i).playCard());
             }
-            IO.println("Laid Cards: " + laidCards.values());
+            System.out.println("Laid Cards: " + laidCards.values());
 
             Map.Entry<Integer, Card> roundWinner = evaluateWinner(laidCards);
-            IO.println("Round Winner is Player " + (roundWinner.getKey() + 1) + " with Card " + roundWinner.getValue());
+            System.out.println("Round Winner is Player " + (roundWinner.getKey() + 1) + " with Card " + roundWinner.getValue());
 
             laidCards.entrySet()
                     .stream()
@@ -52,18 +54,18 @@ public class App {
 
             players.get(roundWinner.getKey()).collectCards(collectableCards);
 
-            IO.println("Player " + (roundWinner.getKey() + 1) + "'s Deck: " + players.get(roundWinner.getKey()).deck().cards());
+            System.out.println("Player " + (roundWinner.getKey() + 1) + "'s Deck: " + players.get(roundWinner.getKey()).deck().cards());
 
             players.removeIf(player -> {
                 if (player.deck().cards().isEmpty()) {
-                    IO.println("Player " + player.playerNo() + " has been eliminated");
+                    System.out.println("Player " + player.playerNo() + " has been eliminated");
                     return true;
                 }
                 return false;
             });
 
             if (players.size() < 2) {
-                IO.println("Player " + players.getFirst().playerNo() + " has won the game.");
+                System.out.println("Player " + players.getFirst().playerNo() + " has won the game.");
                 winner = true;
             }
 
@@ -89,15 +91,15 @@ public class App {
             try {
                 qty = Integer.parseInt(keyInput.nextLine());
             } catch (NumberFormatException e) {
-                IO.println("Entry must be a number. Please try again.");
+                System.out.println("Entry must be a number. Please try again.");
                 continue;
             }
             if (type == 1 && (qty < 2 || qty > 8)) {
-                IO.println("There should be at least 2 players and at most 8. Please try again.");
+                System.out.println("There should be at least 2 players and at most 8. Please try again.");
                 continue;
             }
             if (type == 2 && qty < 1) {
-                IO.println("Entry must be at least 1. Please try again.");
+                System.out.println("Entry must be at least 1. Please try again.");
                 continue;
             }
             break;
@@ -113,7 +115,7 @@ public class App {
             scanner = new Scanner(inputFile);
             rawFile = scanner.nextLine();
         } catch (IllegalStateException ise) {
-            IO.println("File input.txt was not found. Please verify resources directory.");
+            System.out.println("File input.txt was not found. Please verify resources directory.");
             System.exit(0);
         }
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
