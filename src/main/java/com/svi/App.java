@@ -32,20 +32,20 @@ public class App {
         }
 
         while (!winner) {
-            Map<Integer, Card> laidCards = new HashMap<>();
+            Map<Integer, Card> roundPool = new HashMap<>();
             ArrayList<Card> collectableCards = new ArrayList<>();
 
             System.out.println("\n-------------------------------------------------------");
             System.out.println("Round " + round);
             for (int i = 0; i < players.size(); i++) {
-                laidCards.put(i, players.get(i).playCard());
+                roundPool.put(i, players.get(i).playCard());
             }
-            System.out.println("Laid Cards: " + laidCards.values());
+            System.out.println("Laid Cards: " + roundPool.values());
 
-            Map.Entry<Integer, Card> roundWinner = evaluateWinner(laidCards);
+            Map.Entry<Integer, Card> roundWinner = evaluateWinner(roundPool);
             System.out.println("Round Winner is Player " + (roundWinner.getKey() + 1) + " with Card " + roundWinner.getValue());
 
-            laidCards.entrySet()
+            roundPool.entrySet()
                     .stream()
                     .toList()
                     .forEach(entry -> collectableCards.add(entry.getValue()));
