@@ -1,0 +1,76 @@
+package com.svi.utils;
+
+import com.svi.enums.Rank;
+import com.svi.enums.Suit;
+import com.svi.models.Card;
+import com.svi.models.Deck;
+import com.svi.models.Player;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class GameUtils {
+    public static Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
+        if (laidCards == null || laidCards.isEmpty()) {
+            return null;
+        }
+
+        return laidCards.entrySet().stream().max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue())).orElse(null);
+    }
+
+    public static int readGameSetting(String prompt, int type, Scanner keyInput) {
+        int qty;
+        while (true) {
+            IO.print(prompt);
+            try {
+                qty = Integer.parseInt(keyInput.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entry must be a number. Please try again.");
+                continue;
+            }
+            if (type == 1 && (qty < 2 || qty > 8)) {
+                System.out.println("There should be at least 2 players and at most 8. Please try again.");
+                continue;
+            }
+            if (type == 2 && qty < 1) {
+                System.out.println("Entry must be at least 1. Please try again.");
+                continue;
+            }
+            break;
+        }
+        return qty;
+    }
+
+    public static Deck parseFileToDeck(InputStream inputFile) {
+        Scanner scanner;
+        ArrayList<Card> parsedCards = new ArrayList<>();
+        String rawFile = "";
+        try {
+            scanner = new Scanner(inputFile);
+            rawFile = scanner.nextLine();
+        } catch (IllegalStateException ise) {
+            System.out.println("File input.txt was not found. Please verify resources directory.");
+            System.exit(0);
+        }
+        StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
+        while (tokenizer.hasMoreTokens()) {
+            StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
+            Card tempCard;
+            Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
+            String tempRank = innerTokenizer.nextToken();
+
+            try {
+                Rank rankVal = Rank.fromInt(Integer.parseInt(tempRank));
+                tempCard = new Card(rankVal, suitVal);
+            } catch (NumberFormatException nfe) {
+                tempCard = new Card(Rank.valueOf(tempRank), suitVal);
+            }
+            parsedCards.add(tempCard);
+        }
+
+        return new Deck(parsedCards);
+    }
+}
