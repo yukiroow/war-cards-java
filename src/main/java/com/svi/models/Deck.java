@@ -1,16 +1,16 @@
 package com.svi.models;
 
 import java.util.ArrayList;
-//import java.util.Collections;
+import java.util.Collections;
 
 public record Deck(ArrayList<Card> cards) {
-//    public static void shuffleDeck(Deck deck, int qtyShuffle) {
-//        System.out.println("Original Deck: \n" + deck.cards());
-//        for (int i = 0; i < qtyShuffle; i++) {
-//            Collections.shuffle(deck.cards());
-//        }
-//        System.out.println("Shuffled Deck: \n" + deck.cards());
-//    }
+    public static void shuffleDeck(Deck deck, int qtyShuffle) {
+        System.out.println("Original Deck: \n" + deck.cards());
+        for (int i = 0; i < qtyShuffle; i++) {
+            Collections.shuffle(deck.cards());
+        }
+        System.out.println("Shuffled Deck: \n" + deck.cards());
+    }
 
     public static Deck perfectShuffleDeck(Deck deck) {
         int mid = deck.cards().size() / 2;
@@ -26,16 +26,16 @@ public record Deck(ArrayList<Card> cards) {
 
     public static ArrayList<Deck> splitDeck(Deck deck, int qtyPlayers) {
         ArrayList<Deck> splitDecks = new ArrayList<>();
-        int deckSize = deck.cards().size() / qtyPlayers;
-        int currCard = 0;
+
         for (int i = 0; i < qtyPlayers; i++) {
-            ArrayList<Card> tempDeck = new ArrayList<>();
-            for (int j = 0; j < deckSize; j++) {
-                tempDeck.add(deck.cards().get(currCard));
-                currCard++;
-            }
-            splitDecks.add(new Deck(tempDeck));
+            splitDecks.add(new Deck(new ArrayList<>()));
         }
+
+        for (int i = 0; i < deck.cards().size(); i++) {
+            int playerIndex = i % qtyPlayers;
+            splitDecks.get(playerIndex).cards().add(deck.cards().get(i));
+        }
+
         return splitDecks;
     }
 

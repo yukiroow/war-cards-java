@@ -31,13 +31,13 @@ public class Game {
         qtyPlayer = GameUtils.readGameSetting("Enter number of players (2-8): ", 1, keyInput);
         qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2, keyInput);
         System.out.println("-------------------------------------------------------");
-//        Deck.shuffleDeck(parsedDeck, qtyShuffle);
-        System.out.println("Original Deck: \n" + parsedDeck.cards());
-        for (int i = 0; i < qtyShuffle; i++) {
-            sortedDeck = Deck.perfectShuffleDeck(sortedDeck);
-        }
-        System.out.println("Shuffled Deck: \n" + sortedDeck.cards());
-        decks = Deck.splitDeck(sortedDeck, qtyPlayer);
+        Deck.shuffleDeck(parsedDeck, qtyShuffle);
+//        System.out.println("Original Deck: \n" + parsedDeck.cards());
+//        for (int i = 0; i < qtyShuffle; i++) {
+//            sortedDeck = Deck.perfectShuffleDeck(sortedDeck);
+//        }
+//        System.out.println("Shuffled Deck: \n" + sortedDeck.cards());
+        decks = Deck.splitDeck(parsedDeck, qtyPlayer);
         for (int i = 0; i < decks.size(); i++) {
             players.add(new Player((i + 1), decks.get(i)));
         }
