@@ -66,8 +66,13 @@ public class Game {
         Map.Entry<Player, Card> roundWinner = evaluateWinner(roundPool);
         System.out.println("Round Winner is Player " + (roundWinner.getKey().playerNo()) + " with Card " + roundWinner.getValue());
 
-        collectableCards.addAll(roundPool.values());
-        collectableCards.sort(Collections.reverseOrder(Card::compare));
+        int winnerIndex = players.indexOf(roundWinner.getKey());
+        int qtyRemainingPlayer = players.size();
+
+        for (int i = 0; i < qtyRemainingPlayer; i++) {
+            Player player = players.get((winnerIndex + i) % qtyRemainingPlayer);
+            collectableCards.add(roundPool.get(player));
+        }
 
         roundWinner.getKey().collectCards(collectableCards);
 
