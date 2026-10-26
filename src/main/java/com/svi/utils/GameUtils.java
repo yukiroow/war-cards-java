@@ -4,26 +4,15 @@ import com.svi.enums.Rank;
 import com.svi.enums.Suit;
 import com.svi.models.Card;
 import com.svi.models.Deck;
-import com.svi.models.Player;
 
 import java.io.InputStream;
 import java.util.*;
 
 public class GameUtils {
-    public static Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
-        if (laidCards == null || laidCards.isEmpty()) {
-            return null;
-        }
-
-        return laidCards.entrySet().stream()
-                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
-                .orElse(null);
-    }
-
     public static int readGameSetting(String prompt, int type, Scanner keyInput) {
         int qty;
         while (true) {
-            IO.print(prompt);
+            System.out.print(prompt + "\n> ");
             try {
                 qty = Integer.parseInt(keyInput.nextLine());
             } catch (NumberFormatException e) {
@@ -41,6 +30,25 @@ public class GameUtils {
             break;
         }
         return qty;
+    }
+
+    public static boolean readPlayAgain(Scanner keyInput) {
+        while (true) {
+            System.out.print("Do you want to play again (y/n)?\n> ");
+            try {
+                switch (keyInput.nextLine().toLowerCase()) {
+                    case "y", "yes" -> {
+                        return true;
+                    }
+                    case "n", "no" -> {
+                        return false;
+                    }
+                    default -> System.out.println("Invalid entry.");
+                }
+            } catch (NoSuchElementException nsee) {
+                System.out.println("Invalid entry!");
+            }
+        }
     }
 
     public static Deck parseFileToDeck(InputStream inputFile) {
@@ -87,6 +95,6 @@ public class GameUtils {
             return false;
         }
 
-        return new HashSet<>(parsedCards).size() != 52;
+        return new HashSet<>(parsedCards).size() == 52;
     }
 }

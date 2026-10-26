@@ -19,10 +19,9 @@ public class Game {
         winner = false;
     }
 
-    void initializeGame() {
+    void initializeGame(Scanner keyInput) {
         ArrayList<Deck> decks;
         int qtyPlayer, qtyShuffle;
-        Scanner keyInput = new Scanner(System.in);
         Deck sortedDeck = new Deck(parsedDeck.cards());
 
         System.out.println("-------------------------------------------------------");
@@ -64,7 +63,7 @@ public class Game {
         }
         System.out.println("Laid Cards: " + roundPool.values());
 
-        Map.Entry<Player, Card> roundWinner = GameUtils.evaluateWinner(roundPool);
+        Map.Entry<Player, Card> roundWinner = evaluateWinner(roundPool);
         System.out.println("Round Winner is Player " + (roundWinner.getKey().playerNo()) + " with Card " + roundWinner.getValue());
 
         collectableCards.addAll(roundPool.values());
@@ -89,5 +88,15 @@ public class Game {
             winner = true;
         }
         System.out.println("-------------------------------------------------------");
+    }
+
+    Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
+        if (laidCards == null || laidCards.isEmpty()) {
+            return null;
+        }
+
+        return laidCards.entrySet().stream()
+                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
+                .orElse(null);
     }
 }
