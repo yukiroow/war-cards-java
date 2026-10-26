@@ -25,7 +25,6 @@ public record Deck(ArrayList<Card> cards) {
 
         for (int i = 0; i < totalCards; i++) {
             int playerIndex = i % qtyPlayers;
-            System.out.println(i + " -> player " + playerIndex);
             decks.get(playerIndex).cards().add(deck.cards().get(i));
         }
 
