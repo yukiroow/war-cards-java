@@ -7,10 +7,7 @@ import com.svi.models.Deck;
 import com.svi.models.Player;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class GameUtils {
     public static Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
@@ -51,7 +48,7 @@ public class GameUtils {
         try {
             scanner = new Scanner(inputFile);
             rawFile = scanner.nextLine();
-        } catch (IllegalStateException ise) {
+        } catch (NoSuchElementException nsee) {
             System.out.println("File input.txt was not found. Please verify resources directory.");
             System.exit(0);
         }

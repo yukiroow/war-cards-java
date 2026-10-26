@@ -1,17 +1,8 @@
 package com.svi.models;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public record Deck(ArrayList<Card> cards) {
-    public static void shuffleDeck(Deck deck, int qtyShuffle) {
-        System.out.println("Original Deck: \n" + deck.cards());
-        for (int i = 0; i < qtyShuffle; i++) {
-            Collections.shuffle(deck.cards());
-        }
-        System.out.println("Shuffled Deck: \n" + deck.cards());
-    }
-
     public static Deck perfectShuffleDeck(Deck deck) {
         int mid = deck.cards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
@@ -25,18 +16,20 @@ public record Deck(ArrayList<Card> cards) {
     }
 
     public static ArrayList<Deck> splitDeck(Deck deck, int qtyPlayers) {
-        ArrayList<Deck> splitDecks = new ArrayList<>();
+        int totalCards = deck.cards().size();
+        ArrayList<Deck> decks = new ArrayList<>();
 
         for (int i = 0; i < qtyPlayers; i++) {
-            splitDecks.add(new Deck(new ArrayList<>()));
+            decks.add(new Deck(new ArrayList<>()));
         }
 
-        for (int i = 0; i < deck.cards().size(); i++) {
+        for (int i = 0; i < totalCards; i++) {
             int playerIndex = i % qtyPlayers;
-            splitDecks.get(playerIndex).cards().add(deck.cards().get(i));
+            System.out.println(i + " -> player " + playerIndex);
+            decks.get(playerIndex).cards().add(deck.cards().get(i));
         }
 
-        return splitDecks;
+        return decks;
     }
 
     public Card getTopCard() {
