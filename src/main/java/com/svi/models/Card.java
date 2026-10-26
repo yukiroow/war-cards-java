@@ -38,7 +38,7 @@ public class Card {
             case Suit.C -> "♣";
         };
         return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m")
-                + symbol
+                + symbol + suit
                 + "-"
                 + (rank.getValue() < 11 ? rank.getValue() : rank)
                 + "\u001B[0m";
