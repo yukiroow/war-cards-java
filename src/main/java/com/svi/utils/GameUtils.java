@@ -15,7 +15,9 @@ public class GameUtils {
             return null;
         }
 
-        return laidCards.entrySet().stream().max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue())).orElse(null);
+        return laidCards.entrySet().stream()
+                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
+                .orElse(null);
     }
 
     public static int readGameSetting(String prompt, int type, Scanner keyInput) {
@@ -55,19 +57,36 @@ public class GameUtils {
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
-            Card tempCard;
+            Card tempCard = null;
             Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
             String tempRank = innerTokenizer.nextToken();
-
+            Rank rankVal;
             try {
-                Rank rankVal = Rank.fromInt(Integer.parseInt(tempRank));
+                rankVal = Rank.fromInt(Integer.parseInt(tempRank));
                 tempCard = new Card(rankVal, suitVal);
             } catch (NumberFormatException nfe) {
-                tempCard = new Card(Rank.valueOf(tempRank), suitVal);
+                rankVal = Rank.valueOf(tempRank);
+                tempCard = new Card(rankVal, suitVal);
+            } catch (IllegalArgumentException iae) {
+                System.out.println("Illegal Card detected. Please verify the input.txt file and reload.");
+                System.exit(0);
             }
             parsedCards.add(tempCard);
         }
 
+        if (!validateLoadedDeck(parsedCards)) {
+            System.out.println("There was a problem with the loaded deck. Please verify the input.txt file and reload.");
+            System.exit(0);
+        }
+
         return new Deck(parsedCards);
+    }
+
+    private static boolean validateLoadedDeck(ArrayList<Card> parsedCards) {
+        if (parsedCards.size() != 52) {
+            return false;
+        }
+
+        return new HashSet<>(parsedCards).size() != 52;
     }
 }
