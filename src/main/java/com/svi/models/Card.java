@@ -31,8 +31,14 @@ public class Card {
 
     @Override
     public String toString() {
-        return (suit.getValue() > 2 ? "\u001B[41m\u001B[30m" : "\u001B[40m")
-                + suit
+        String symbol = switch (suit) {
+            case Suit.D -> "♦";
+            case Suit.H -> "♥";
+            case Suit.S -> "♠";
+            case Suit.C -> "♣";
+        };
+        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m")
+                + symbol
                 + "-"
                 + (rank.getValue() < 11 ? rank.getValue() : rank)
                 + "\u001B[0m";
