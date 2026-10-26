@@ -13,7 +13,7 @@ public class Game {
     private boolean winner;
 
     Game() {
-        parsedDeck = GameUtils.parseFileToDeck(Game.class.getResourceAsStream("/input.txt"));
+        parsedDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
         players = new ArrayList<>();
         rounds = 1;
         winner = false;
@@ -22,7 +22,7 @@ public class Game {
     void initializeGame(Scanner keyInput) {
         ArrayList<Deck> decks;
         int qtyPlayer, qtyShuffle;
-        Deck sortedDeck = new Deck(parsedDeck.cards());
+        Deck shuffledDeck = new Deck(parsedDeck.cards());
 
         System.out.println("-------------------------------------------------------");
         System.out.println("Welcome to Ward Cards!");
@@ -31,16 +31,16 @@ public class Game {
         qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2, keyInput);
         System.out.println("-------------------------------------------------------");
 
-        System.out.println("Original Deck: \n" + parsedDeck.cards());
         for (int i = 0; i < qtyShuffle; i++) {
-            sortedDeck = Deck.perfectShuffleDeck(sortedDeck);
+            shuffledDeck = Deck.perfectShuffleDeck(shuffledDeck);
         }
-        System.out.println("Shuffled Deck: \n" + sortedDeck.cards());
-        decks = Deck.splitDeck(sortedDeck, qtyPlayer);
-
+        decks = Deck.splitDeck(shuffledDeck, qtyPlayer);
         for (int i = 0; i < decks.size(); i++) {
             players.add(new Player((i + 1), decks.get(i)));
         }
+
+        System.out.println("Original Deck: \n" + parsedDeck.cards());
+        System.out.println("Shuffled Deck: \n" + shuffledDeck.cards());
         System.out.println("-------------------------------------------------------");
     }
 

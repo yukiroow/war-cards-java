@@ -36,7 +36,7 @@ public class GameUtils {
         while (true) {
             System.out.print("Do you want to play again (y/n)?\n> ");
             try {
-                switch (keyInput.nextLine().toLowerCase()) {
+                switch (keyInput.nextLine().trim().toLowerCase()) {
                     case "y", "yes" -> {
                         return true;
                     }
@@ -51,9 +51,8 @@ public class GameUtils {
         }
     }
 
-    public static Deck parseFileToDeck(InputStream inputFile) {
+    public static Deck loadDeckFile(InputStream inputFile) {
         Scanner scanner;
-        ArrayList<Card> parsedCards = new ArrayList<>();
         String rawFile = "";
         try {
             scanner = new Scanner(inputFile);
@@ -62,6 +61,12 @@ public class GameUtils {
             System.out.println("File input.txt was not found. Please verify resources directory.");
             System.exit(0);
         }
+
+        return parseToDeck(rawFile);
+    }
+
+    private static Deck parseToDeck(String rawFile) {
+        ArrayList<Card> parsedCards = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
