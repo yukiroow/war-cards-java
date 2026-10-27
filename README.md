@@ -6,6 +6,12 @@ This repository contains my CLI implementation of the War Cards Game to be submi
 
 This project is written with `Java JDK 25.0.4` and built using `Maven`.
 
+## Running the Project
+
+```java
+java -jar harrydom-war-cards
+```
+
 ## Original Specification
 
 ### General Instruction
