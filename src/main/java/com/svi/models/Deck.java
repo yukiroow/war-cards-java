@@ -36,8 +36,6 @@ public record Deck(ArrayList<Card> cards) {
     }
 
     public void addToBottom(ArrayList<Card> cards) {
-        for (Card card : cards) {
-            this.cards.add(card);
-        }
+        this.cards.addAll(cards);
     }
 }
