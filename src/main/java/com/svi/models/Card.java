@@ -12,7 +12,6 @@ public class Card {
         this.suit = suit;
     }
 
-
     public static int compare(Card a, Card b) {
         if (a.getRank() > b.getRank()) {
             return 1;
@@ -37,7 +36,7 @@ public class Card {
             case Suit.S -> "♠";
             case Suit.C -> "♣";
         };
-        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m")
+        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m\u001B[37m")
                 + symbol + suit
                 + "-"
                 + (rank.getValue() < 11 ? rank.getValue() : rank)

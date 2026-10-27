@@ -14,7 +14,7 @@ public class GameUtils {
         while (true) {
             System.out.print(prompt + "\n> ");
             try {
-                qty = Integer.parseInt(keyInput.nextLine());
+                qty = Integer.parseInt(keyInput.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("Entry must be a number. Please try again.");
                 continue;

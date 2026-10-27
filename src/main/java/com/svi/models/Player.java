@@ -1,6 +1,6 @@
 package com.svi.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public record Player(int playerNo, Deck deck) {
 
@@ -8,7 +8,7 @@ public record Player(int playerNo, Deck deck) {
         return deck.getTopCard();
     }
 
-    public void collectCards(ArrayList<Card> cards) {
+    public void collectCards(List<Card> cards) {
         deck.addToBottom(cards);
     }
 }

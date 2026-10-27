@@ -1,6 +1,7 @@
 package com.svi.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public record Deck(ArrayList<Card> cards) {
     public static Deck perfectShuffleDeck(Deck deck) {
@@ -35,7 +36,7 @@ public record Deck(ArrayList<Card> cards) {
         return cards.removeFirst();
     }
 
-    public void addToBottom(ArrayList<Card> cards) {
+    public void addToBottom(List<Card> cards) {
         this.cards.addAll(cards);
     }
 }

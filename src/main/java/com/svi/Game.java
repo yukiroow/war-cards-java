@@ -47,7 +47,7 @@ public class Game {
     void startGameLoop() {
         while (!winner) {
             Map<Player, Card> roundPool = new LinkedHashMap<>();
-            ArrayList<Card> collectableCards = new ArrayList<>();
+            List<Card> collectableCards = new ArrayList<>();
 
             System.out.println("Round " + rounds);
             playCards(roundPool, collectableCards);
@@ -57,7 +57,7 @@ public class Game {
         }
     }
 
-    void playCards(Map<Player, Card> roundPool, ArrayList<Card> collectableCards) {
+    void playCards(Map<Player, Card> roundPool, List<Card> collectableCards) {
         for (Player player : players) {
             roundPool.put(player, player.playCard());
         }
