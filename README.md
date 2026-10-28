@@ -6,9 +6,21 @@ This repository contains my CLI implementation of the War Cards Game to be submi
 
 This project is written with `Java JDK 25.0.4` and built using `Maven`.
 
-## Running the Project
+## Getting Started
 
-```java
+1. Clone Repository
+
+```shell
+git clone https://github.com/yukiroow/war-cards-java.git
+```
+
+2. Open project in your Java IDE (Maven)
+
+3. Build artifact
+
+### For built executable
+
+```shell
 java -jar harrydom-war-cards
 ```
 
