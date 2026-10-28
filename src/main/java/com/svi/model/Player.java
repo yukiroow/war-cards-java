@@ -1,5 +1,6 @@
 package com.svi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -13,7 +14,9 @@ public class Player {
 
     public Player(Player player) {
         this.playerNo = player.getPlayerNo();
-        this.deck = player.getDeck();
+        this.deck = new Deck(
+                new ArrayList<>(player.getDeck().cards())
+        );
     }
 
     public int getPlayerNo() {

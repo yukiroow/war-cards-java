@@ -16,8 +16,12 @@ public class GameController {
     public GameController() {
         gameView = new GameFrame();
         gameModel = new Game();
+        gameModel.initializeGame();
+        gameModel.startGameLoop();
     }
 
-
-
+    public void startGame() {
+        gameView.loadMainPanel(gameModel.getGameHistory(), gameModel.getOriginalDeck(), gameModel.getShuffledDeck());
+        gameView.setVisible(true);
+    }
 }

@@ -13,15 +13,15 @@ public class Card {
     }
 
     public static int compare(Card a, Card b) {
-        if (a.getRank() > b.getRank()) {
+        if (a.getRankValue() > b.getRankValue()) {
             return 1;
-        } else if (a.getRank() < b.getRank()) {
+        } else if (a.getRankValue() < b.getRankValue()) {
             return -1;
         }
 
-        if (a.getSuit() > b.getSuit()) {
+        if (a.getSuitValue() > b.getSuitValue()) {
             return 1;
-        } else if (a.getSuit() < b.getSuit()) {
+        } else if (a.getSuitValue() < b.getSuitValue()) {
             return -1;
         }
 
@@ -43,11 +43,19 @@ public class Card {
                 + "\u001B[0m";
     }
 
-    public int getRank() {
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public int getRankValue() {
         return rank.getValue();
     }
 
-    public int getSuit() {
+    public int getSuitValue() {
         return suit.getValue();
     }
 }
