@@ -1,7 +1,7 @@
 package com.svi.util;
 
-import com.svi.cardenum.Rank;
-import com.svi.cardenum.Suit;
+import com.svi.model.cardenum.Rank;
+import com.svi.model.cardenum.Suit;
 import com.svi.model.Card;
 import com.svi.model.Deck;
 

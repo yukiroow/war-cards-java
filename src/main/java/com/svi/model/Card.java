@@ -1,7 +1,7 @@
 package com.svi.model;
 
-import com.svi.cardenum.Rank;
-import com.svi.cardenum.Suit;
+import com.svi.model.cardenum.Rank;
+import com.svi.model.cardenum.Suit;
 
 public class Card {
     private final Rank rank;
