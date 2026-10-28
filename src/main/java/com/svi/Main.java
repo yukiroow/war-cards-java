@@ -1,24 +1,15 @@
 package com.svi;
 
-import com.svi.util.GameUtils;
+import com.svi.controller.GameController;
+import com.svi.model.Game;
+import com.svi.view.GameFrame;
 
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Main {
     static void main() {
-        try {
-            Scanner keyInput = new Scanner(System.in);
-            Game warCards;
-            boolean gameRunning = true;
-            while(gameRunning) {
-                warCards = new Game();
-                warCards.initializeGame(keyInput);
-                warCards.startGameLoop();
-                gameRunning = GameUtils.readPlayAgain(keyInput);
-            }
-            System.out.println("Thank you for playing War Cards!");
-        } catch (Exception e) {
-            System.out.println("There was an unexpected problem. Please try again." + e);
-        }
+        SwingUtilities.invokeLater(() -> {
+            GameController gameController = new GameController();
+        });
     }
 }
