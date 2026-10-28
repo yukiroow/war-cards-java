@@ -10,12 +10,10 @@ import com.svi.view.GameFrame;
 import java.util.*;
 
 public class GameController {
-    private GameFrame gameView;
-    private Game gameModel;
-    private Scanner keyInput;
+    private final GameFrame gameView;
+    private final Game gameModel;
 
     public GameController() {
-        keyInput = new Scanner(System.in);
         gameView = new GameFrame();
         gameModel = new Game();
     }
@@ -28,8 +26,8 @@ public class GameController {
         System.out.println("-------------------------------------------------------");
         System.out.println("Welcome to Ward Cards!");
         System.out.println("-------------------------------------------------------");
-        qtyPlayer = GameUtils.readGameSetting("Enter number of players (2-8): ", 1, keyInput);
-        qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2, keyInput);
+        qtyPlayer = GameUtils.readGameSetting("Enter number of players (2-8): ", 1);
+        qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2);
         System.out.println("-------------------------------------------------------");
 
         for (int i = 0; i < qtyShuffle; i++) {

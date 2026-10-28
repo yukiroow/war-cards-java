@@ -1,30 +1,30 @@
 package com.svi.util;
 
-import com.svi.model.cardenum.Rank;
-import com.svi.model.cardenum.Suit;
 import com.svi.model.Card;
 import com.svi.model.Deck;
+import com.svi.model.cardenum.Rank;
+import com.svi.model.cardenum.Suit;
 
+import javax.swing.*;
 import java.io.InputStream;
 import java.util.*;
 
 public class GameUtils {
-    public static int readGameSetting(String prompt, int type, Scanner keyInput) {
+    public static int readGameSetting(String prompt, int type) {
         int qty;
         while (true) {
-            System.out.print(prompt + "\n> ");
             try {
-                qty = Integer.parseInt(keyInput.nextLine().trim());
+                qty = Integer.parseInt(JOptionPane.showInputDialog(prompt).trim());
             } catch (NumberFormatException e) {
-                System.out.println("Entry must be a number. Please try again.");
+                JOptionPane.showMessageDialog(null, "Entry must be a number. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;
             }
             if (type == 1 && (qty < 2 || qty > 8)) {
-                System.out.println("There should be at least 2 players and at most 8. Please try again.");
+                JOptionPane.showMessageDialog(null, "There should be at least 2 players and at most 8. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;
             }
             if (type == 2 && qty < 1) {
-                System.out.println("Entry must be at least 1. Please try again.");
+                JOptionPane.showMessageDialog(null, "Entry must be at least 1. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;
             }
             break;
@@ -32,18 +32,18 @@ public class GameUtils {
         return qty;
     }
 
-    public static boolean readPlayAgain(Scanner keyInput) {
+    public static boolean readPlayAgain() {
         while (true) {
-            System.out.print("Do you want to play again (y/n)?\n> ");
             try {
-                switch (keyInput.nextLine().trim().toLowerCase()) {
+                switch (JOptionPane.showInputDialog("Do you want to play again (y/n)?").trim()) {
                     case "y", "yes" -> {
                         return true;
                     }
                     case "n", "no" -> {
                         return false;
                     }
-                    default -> System.out.println("Invalid entry.");
+                    default ->
+                            JOptionPane.showMessageDialog(null, "Invalid entry.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NoSuchElementException nsee) {
                 System.out.println("Invalid entry!");
@@ -58,7 +58,7 @@ public class GameUtils {
             scanner = new Scanner(inputFile);
             rawFile = scanner.nextLine();
         } catch (NoSuchElementException nsee) {
-            System.out.println("File input.txt was not found. Please verify resources directory.");
+            JOptionPane.showMessageDialog(null, "File input.txt was not found. Please verify resources directory.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
 
@@ -81,14 +81,14 @@ public class GameUtils {
                 rankVal = Rank.valueOf(tempRank);
                 tempCard = new Card(rankVal, suitVal);
             } catch (IllegalArgumentException iae) {
-                System.out.println("Illegal Card detected. Please verify the input.txt file and reload.");
+                JOptionPane.showMessageDialog(null, "Illegal Card detected. Please verify the input.txt file and reload.", "Error", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
             parsedCards.add(tempCard);
         }
 
         if (!validateLoadedDeck(parsedCards)) {
-            System.out.println("There was a problem with the loaded deck. Please verify the input.txt file and reload.");
+            JOptionPane.showMessageDialog(null, "There was a problem with the loaded deck. Please verify the input.txt file and reload.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
 
