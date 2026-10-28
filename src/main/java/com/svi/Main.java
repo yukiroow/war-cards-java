@@ -1,6 +1,6 @@
 package com.svi;
 
-import com.svi.utils.GameUtils;
+import com.svi.util.GameUtils;
 
 import java.util.Scanner;
 

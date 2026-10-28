@@ -1,10 +1,10 @@
 package com.svi;
 
 import module java.base;
-import com.svi.models.Card;
-import com.svi.models.Deck;
-import com.svi.models.Player;
-import com.svi.utils.GameUtils;
+import com.svi.model.Card;
+import com.svi.model.Deck;
+import com.svi.model.Player;
+import com.svi.util.GameUtils;
 
 public class Game {
     private final ArrayList<Player> players;

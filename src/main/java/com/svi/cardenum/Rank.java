@@ -1,4 +1,4 @@
-package com.svi.enums;
+package com.svi.cardenum;
 
 
 public enum Rank {

@@ -1,9 +1,9 @@
-package com.svi.utils;
+package com.svi.util;
 
-import com.svi.enums.Rank;
-import com.svi.enums.Suit;
-import com.svi.models.Card;
-import com.svi.models.Deck;
+import com.svi.cardenum.Rank;
+import com.svi.cardenum.Suit;
+import com.svi.model.Card;
+import com.svi.model.Deck;
 
 import java.io.InputStream;
 import java.util.*;

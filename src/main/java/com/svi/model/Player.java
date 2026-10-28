@@ -1,4 +1,4 @@
-package com.svi.models;
+package com.svi.model;
 
 import java.util.List;
 
