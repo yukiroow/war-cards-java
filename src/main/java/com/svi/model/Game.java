@@ -5,50 +5,94 @@ import com.svi.util.GameUtils;
 
 public class Game {
     private final ArrayList<Player> players;
-    private final ArrayList<Player> winnerHistory;
-    private final ArrayList<Map<Player, Card>> roundHistory;
-    private final Deck parsedDeck;
-    private int rounds;
+    private final ArrayList<Round> gameHistory;
+    private final Deck originalDeck;
+    private Deck shuffledDeck;
     private boolean gameOver;
 
     public Game() {
-        winnerHistory = new ArrayList<>();
-        roundHistory = new ArrayList<>();
-        parsedDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
+        gameHistory = new ArrayList<>();
+        originalDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
+        shuffledDeck = new Deck(originalDeck.cards());
         players = new ArrayList<>();
-        rounds = 1;
         gameOver = false;
     }
 
-    public boolean isGameOver() {
-        return gameOver;
+    public void initializeGame() {
+        ArrayList<Deck> decks;
+        int qtyPlayer, qtyShuffle;
+
+        qtyPlayer = GameUtils.readGameSetting("Enter number of players (2-8)", 1);
+        qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles", 2);
+
+        for (int i = 0; i < qtyShuffle; i++) {
+            shuffledDeck = Deck.perfectShuffleDeck(shuffledDeck);
+        }
+        decks = Deck.splitDeck(shuffledDeck, qtyPlayer);
+        for (int i = 0; i < decks.size(); i++) {
+            players.add(new Player((i + 1), decks.get(i)));
+        }
     }
 
-    public void endGame() {
-        gameOver = true;
+    public void startGameLoop() {
+        int rounds = 1;
+        while (!gameOver) {
+            Round round = new Round(rounds);
+            playCards(round);
+            doRoundCleanup();
+            gameHistory.add(round);
+            rounds++;
+        }
     }
 
-    public Deck getParsedDeck() {
-        return parsedDeck;
+    public Deck getOriginalDeck() {
+        return originalDeck;
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
+    public Deck getShuffledDeck() {
+        return shuffledDeck;
     }
 
-    public int getRounds() {
-        return rounds;
+    public ArrayList<Round> getGameHistory() {
+        return gameHistory;
     }
 
-    public void incrementRound() {
-        rounds++;
+    private void playCards(Round round) {
+        List<Card> collectableCards = new ArrayList<>();
+        for (Player player : players) {
+            round.addToRoundPool(player, player.playCard());
+        }
+        Map.Entry<Player, Card> roundWinner = evaluateWinner(round.getRoundPool());
+        int winnerIndex = players.indexOf(roundWinner.getKey());
+        int qtyRemainingPlayer = players.size();
+        for (int i = 0; i < qtyRemainingPlayer; i++) {
+            Player player = players.get((winnerIndex + i) % qtyRemainingPlayer);
+            collectableCards.add(round.getRoundPool().get(player));
+        }
+        roundWinner.getKey().collectCards(collectableCards);
+        round.declareRoundWinner(new Player(roundWinner.getKey()));
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
+    public void doRoundCleanup() {
+        players.removeIf(player -> {
+            if (player.getDeck().cards().isEmpty()) {
+                return true;
+            }
+            return false;
+        });
+
+        if (players.size() < 2) {
+            gameOver = true;
+        }
     }
 
-    public int getRemainingPlayerCount() {
-        return players.size();
+    public Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
+        if (laidCards == null || laidCards.isEmpty()) {
+            return null;
+        }
+
+        return laidCards.entrySet().stream()
+                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
+                .orElse(null);
     }
 }
