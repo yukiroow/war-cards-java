@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private int playerNo;
-    private Deck deck;
+    private final int playerNo;
+    private final Deck deck;
 
     public Player(int playerNo, Deck deck) {
         this.playerNo = playerNo;

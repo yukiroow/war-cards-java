@@ -3,14 +3,7 @@ package com.svi.model;
 import com.svi.model.cardenum.Rank;
 import com.svi.model.cardenum.Suit;
 
-public class Card {
-    private final Rank rank;
-    private final Suit suit;
-
-    public Card(Rank rank, Suit suit) {
-        this.rank = rank;
-        this.suit = suit;
-    }
+public record Card(Rank rank, Suit suit) {
 
     public static int compare(Card a, Card b) {
         if (a.getRankValue() > b.getRankValue()) {
@@ -41,14 +34,6 @@ public class Card {
                 + "-"
                 + (rank.getValue() < 11 ? rank.getValue() : rank)
                 + "\u001B[0m";
-    }
-
-    public Rank getRank() {
-        return rank;
-    }
-
-    public Suit getSuit() {
-        return suit;
     }
 
     public int getRankValue() {

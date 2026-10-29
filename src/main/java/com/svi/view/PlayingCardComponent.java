@@ -77,9 +77,9 @@ public class PlayingCardComponent extends JComponent {
         g.setStroke(new BasicStroke(1f));
         g.draw(face);
 
-        String rank = rankSymbol(card.getRank());
-        String suit = suitSymbol(card.getSuit());
-        g.setColor(suitColor(card.getSuit()));
+        String rank = rankSymbol(card.rank());
+        String suit = suitSymbol(card.suit());
+        g.setColor(suitColor(card.suit()));
 
         paintCenterSuit(g, suit, w, h);
 

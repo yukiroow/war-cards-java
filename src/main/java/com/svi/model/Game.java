@@ -74,12 +74,7 @@ public class Game {
     }
 
     public void doRoundCleanup() {
-        players.removeIf(player -> {
-            if (player.getDeck().cards().isEmpty()) {
-                return true;
-            }
-            return false;
-        });
+        players.removeIf(player -> player.getDeck().cards().isEmpty());
 
         if (players.size() < 2) {
             gameOver = true;

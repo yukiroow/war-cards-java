@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
-    private JPanel mainPanel;
     public GameFrame() {
         setTitle("War Cards Java");
         setSize(800, 500);
@@ -16,7 +15,7 @@ public class GameFrame extends JFrame {
     }
 
     public void loadMainPanel(ArrayList<Round> gameHistory, Deck originalDeck, Deck shuffledDeck) {
-        mainPanel = new RoundViewerPanel(gameHistory, originalDeck, shuffledDeck);
+        JPanel mainPanel = new RoundViewerPanel(gameHistory, originalDeck, shuffledDeck);
         setContentPane(mainPanel);
     }
 
