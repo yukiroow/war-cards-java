@@ -1,9 +1,6 @@
-package com.svi;
+package com.svi.model;
 
 import module java.base;
-import com.svi.model.Card;
-import com.svi.model.Deck;
-import com.svi.model.Player;
 import com.svi.util.GameUtils;
 
 public class Game {
@@ -12,14 +9,14 @@ public class Game {
     private int rounds;
     private boolean winner;
 
-    Game() {
+    public Game() {
         parsedDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
         players = new ArrayList<>();
         rounds = 1;
         winner = false;
     }
 
-    void initializeGame(Scanner keyInput) {
+    public void initializeGame(Scanner keyInput) {
         ArrayList<Deck> decks;
         int qtyPlayer, qtyShuffle;
         Deck shuffledDeck = new Deck(parsedDeck.cards());
@@ -44,7 +41,7 @@ public class Game {
         System.out.println("-------------------------------------------------------");
     }
 
-    void startGameLoop() {
+    public void startGameLoop() {
         while (!winner) {
             Map<Player, Card> roundPool = new LinkedHashMap<>();
             List<Card> collectableCards = new ArrayList<>();
@@ -57,7 +54,7 @@ public class Game {
         }
     }
 
-    void playCards(Map<Player, Card> roundPool, List<Card> collectableCards) {
+    private void playCards(Map<Player, Card> roundPool, List<Card> collectableCards) {
         for (Player player : players) {
             roundPool.put(player, player.playCard());
         }
@@ -79,7 +76,7 @@ public class Game {
         System.out.println("Player " + (roundWinner.getKey().playerNo()) + "'s Deck: " + roundWinner.getKey().deck().cards());
     }
 
-    void doRoundCleanup() {
+    private void doRoundCleanup() {
         players.removeIf(player -> {
             if (player.deck().cards().isEmpty()) {
                 System.out.println("Player " + player.playerNo() + " has been eliminated");
@@ -95,7 +92,7 @@ public class Game {
         System.out.println("-------------------------------------------------------");
     }
 
-    Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
+    private Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
         if (laidCards == null || laidCards.isEmpty()) {
             return null;
         }
