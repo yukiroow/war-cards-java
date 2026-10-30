@@ -38,9 +38,7 @@ There are 52 cards on the deck.
 
 2. The initial deck will be given in a table in memory.
 
-> ~~3. Shuffling means cutting the card deck in half, then sequencing the cards from the half decks alternately to a new deck.~~
-
-3. Shuffling means randomly sequencing the cards.
+3. Shuffling means cutting the card deck in half, then sequencing the cards from the half decks alternately to a new deck.
 
 4. Distribute the cards to the players
 
