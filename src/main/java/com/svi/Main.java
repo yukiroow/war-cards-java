@@ -5,7 +5,16 @@ import com.svi.util.GameUtils;
 
 import java.util.Scanner;
 
+/**
+ * The {@code Main} class serves as the primary entry point for the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class Main {
+    /**
+     * Starts the application.
+     */
     static void main() {
         try {
             Scanner keyInput = new Scanner(System.in);
