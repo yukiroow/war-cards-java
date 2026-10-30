@@ -168,15 +168,15 @@ public class Game {
      * The winning entry is determined by finding the entry with the highest card value in the round pool. Card values are compared using the {@link Card#compare(Card, Card)} method.
      * </p>
      *
-     * @param laidCards the round pool
+     * @param roundPool the round pool
      * @return the Map Entry of the winner
      */
-    private Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {
-        if (laidCards == null || laidCards.isEmpty()) {
+    private Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> roundPool) {
+        if (roundPool == null || roundPool.isEmpty()) {
             return null;
         }
 
-        return laidCards.entrySet().stream()
+        return roundPool.entrySet().stream()
                 .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
                 .orElse(null);
     }
