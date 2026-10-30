@@ -151,8 +151,8 @@ public class GameUtils {
      * {@code StringTokenizer} is used to separate the card values (,) as well as the Suit-Rank values (-)
      * </p>
      *
-     * @param rawFile
-     * @return
+     * @param rawFile the given string
+     * @return the Deck object parsed from the string
      */
     private static Deck parseToDeck(String rawFile) {
         ArrayList<Card> parsedCards = new ArrayList<>();
