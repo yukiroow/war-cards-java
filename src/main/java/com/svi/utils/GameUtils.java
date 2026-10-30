@@ -25,8 +25,8 @@ public class GameUtils {
      *      <li>A type {@code 2} setting's integer value must be at least 1.</li>
      * </ul>
      *
-     * @param prompt the message prompt
-     * @param type the given type
+     * @param prompt   the message prompt
+     * @param type     the given type
      * @param keyInput the Scanner object for user input
      * @return the integer value
      */
@@ -58,7 +58,7 @@ public class GameUtils {
      *
      * @param keyInput the Scanner object for user input
      * @return {@code true} if input is {@code y} or {@code yes}
-     *         {@code false} if input is {@code n} or {@code no}
+     * {@code false} if input is {@code n} or {@code no}
      */
     public static boolean readPlayAgain(Scanner keyInput) {
         while (true) {
@@ -106,7 +106,7 @@ public class GameUtils {
      * </p>
      *
      * @param message the given message
-     * @param deck the given Card Deck
+     * @param deck    the given Card Deck
      */
     public static void displayDeck(String message, Deck deck) {
         System.out.println(message);
@@ -193,7 +193,7 @@ public class GameUtils {
      *
      * @param parsedCards the given list of Cards
      * @return {@code true} if the given list of Cards is valid
-     *         {@code false} if the given list of Cards is invalid
+     * {@code false} if the given list of Cards is invalid
      */
     private static boolean validateLoadedDeck(ArrayList<Card> parsedCards) {
         if (parsedCards.size() != 52) {

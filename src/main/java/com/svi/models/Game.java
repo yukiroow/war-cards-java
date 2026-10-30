@@ -113,7 +113,7 @@ public class Game {
      *     <li>The updated Deck of the winning Player is displayed</li>
      * </ul>
      *
-     * @param roundPool the current round's Card pool
+     * @param roundPool        the current round's Card pool
      * @param collectableCards the current round's Card pool to be collected by round winner
      */
     private void playCards(Map<Player, Card> roundPool, List<Card> collectableCards) {
@@ -176,8 +176,6 @@ public class Game {
             return null;
         }
 
-        return roundPool.entrySet().stream()
-                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
-                .orElse(null);
+        return roundPool.entrySet().stream().max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue())).orElse(null);
     }
 }

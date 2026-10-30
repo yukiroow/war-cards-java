@@ -20,7 +20,7 @@ public class Main {
             Scanner keyInput = new Scanner(System.in);
             Game warCards;
             boolean gameRunning = true;
-            while(gameRunning) {
+            while (gameRunning) {
                 warCards = new Game();
                 warCards.initializeGame(keyInput);
                 warCards.startGameLoop();

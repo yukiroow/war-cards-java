@@ -6,7 +6,7 @@ import java.util.List;
  * Represents a Player in the War Cards Game.
  *
  * @param playerNo the numeric identifier of this Player
- * @param deck the Deck of Cards of this Player
+ * @param deck     the Deck of Cards of this Player
  */
 public record Player(int playerNo, Deck deck) {
 

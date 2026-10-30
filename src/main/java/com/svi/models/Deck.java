@@ -40,7 +40,7 @@ public record Deck(ArrayList<Card> cards) {
      * The deck is split into {@code qtyPlayers} items, each populated through round-robin addition from the given Deck.
      * </p>
      *
-     * @param deck the given deck
+     * @param deck       the given deck
      * @param qtyPlayers the amount of decks to be generated
      * @return the list of Decks
      */

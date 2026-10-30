@@ -34,8 +34,8 @@ public class Card {
      * @param a the first Card to be compared
      * @param b the second Card to be compared
      * @return {@code 1} if Card {@code a} is greater than card {@code b};
-     *         {@code -1} if Card {@code a} is less than card {@code b};
-     *         {@code 0} if Card {@code a} is equal to card {@code b};
+     * {@code -1} if Card {@code a} is less than card {@code b};
+     * {@code 0} if Card {@code a} is equal to card {@code b};
      */
     public static int compare(Card a, Card b) {
         if (a.getRank() > b.getRank()) {
@@ -74,11 +74,7 @@ public class Card {
             case Suit.S -> "♠";
             case Suit.C -> "♣";
         };
-        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m\u001B[37m")
-                + symbol + suit
-                + "-"
-                + (rank.getValue() < 11 ? rank.getValue() : rank)
-                + "\u001B[0m";
+        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m\u001B[37m") + symbol + suit + "-" + (rank.getValue() < 11 ? rank.getValue() : rank) + "\u001B[0m";
     }
 
     /**

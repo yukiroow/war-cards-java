@@ -21,26 +21,26 @@ public enum Rank {
     }
 
     /**
-     * Returns the numeric value of this Rank.
-     *
-     * @return the integer value
-     */
-    public int getValue() {
-        return this.value;
-    }
-
-    /**
      * Constructs a Rank associated with a given numeric value.
      *
      * @param val given numeric value
      * @return Rank with the given value
      */
     public static Rank fromInt(int val) {
-        for (Rank rank: Rank.values()) {
+        for (Rank rank : Rank.values()) {
             if (rank.value == val) {
                 return rank;
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the numeric value of this Rank.
+     *
+     * @return the integer value
+     */
+    public int getValue() {
+        return this.value;
     }
 }
