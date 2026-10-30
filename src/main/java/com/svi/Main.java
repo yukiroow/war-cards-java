@@ -13,6 +13,12 @@ import java.util.Scanner;
  */
 public class Main {
     /**
+     * Prevents instantiation of the application entry-point class.
+     */
+    private Main() {
+    }
+
+    /**
      * Starts the application.
      */
     static void main() {

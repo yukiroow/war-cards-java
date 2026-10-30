@@ -17,6 +17,12 @@ import java.util.*;
  */
 public class GameUtils {
     /**
+     * Prevents instantiation of this utility class.
+     */
+    private GameUtils() {
+    }
+
+    /**
      * This reads and returns an integer value based on the condition of the given type.
      *
      * <p>Conditions:</p>
