@@ -21,12 +21,12 @@ public class Game {
         int qtyPlayer, qtyShuffle;
         Deck shuffledDeck = new Deck(parsedDeck.cards());
 
-        System.out.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------");
         System.out.println("Welcome to Ward Cards!");
-        System.out.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------");
         qtyPlayer = GameUtils.readGameSetting("Enter number of players (2-8): ", 1, keyInput);
         qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2, keyInput);
-        System.out.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------");
 
         for (int i = 0; i < qtyShuffle; i++) {
             shuffledDeck = Deck.perfectShuffleDeck(shuffledDeck);
@@ -36,9 +36,9 @@ public class Game {
             players.add(new Player((i + 1), decks.get(i)));
         }
 
-        System.out.println("Original Deck: \n" + parsedDeck.cards());
-        System.out.println("Shuffled Deck: \n" + shuffledDeck.cards());
-        System.out.println("-------------------------------------------------------");
+        GameUtils.displayDeck("Original Deck", parsedDeck);
+        GameUtils.displayDeck("Shuffled Deck", shuffledDeck);
+        System.out.println("-------------------------------------------------------------------------------");
     }
 
     public void startGameLoop() {
@@ -46,7 +46,7 @@ public class Game {
             Map<Player, Card> roundPool = new LinkedHashMap<>();
             List<Card> collectableCards = new ArrayList<>();
 
-            System.out.println("Round " + rounds);
+            System.out.println("[[ ROUND " + rounds + " ]]");
             playCards(roundPool, collectableCards);
             doRoundCleanup();
 
@@ -58,7 +58,7 @@ public class Game {
         for (Player player : players) {
             roundPool.put(player, player.playCard());
         }
-        System.out.println("Laid Cards: " + roundPool.values());
+        GameUtils.displayRoundPool(roundPool);
 
         Map.Entry<Player, Card> roundWinner = evaluateWinner(roundPool);
         System.out.println("Round Winner is Player " + (roundWinner.getKey().playerNo()) + " with Card " + roundWinner.getValue());
@@ -73,23 +73,23 @@ public class Game {
 
         roundWinner.getKey().collectCards(collectableCards);
 
-        System.out.println("Player " + (roundWinner.getKey().playerNo()) + "'s Deck: " + roundWinner.getKey().deck().cards());
+        GameUtils.displayDeck("Player " + (roundWinner.getKey().playerNo()) + "'s updated deck: ", roundWinner.getKey().deck());
     }
 
     private void doRoundCleanup() {
         players.removeIf(player -> {
             if (player.deck().cards().isEmpty()) {
-                System.out.println("Player " + player.playerNo() + " has been eliminated");
+                System.out.println("Player " + player.playerNo() + " has been ELIMINATED");
                 return true;
             }
             return false;
         });
 
         if (players.size() < 2) {
-            System.out.println("Player " + players.getFirst().playerNo() + " has won the game.");
+            System.out.println("Player " + players.getFirst().playerNo() + " has WON the game");
             winner = true;
         }
-        System.out.println("-------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------");
     }
 
     private Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> laidCards) {

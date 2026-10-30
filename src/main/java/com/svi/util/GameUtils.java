@@ -4,6 +4,7 @@ import com.svi.cardenum.Rank;
 import com.svi.cardenum.Suit;
 import com.svi.model.Card;
 import com.svi.model.Deck;
+import com.svi.model.Player;
 
 import java.io.InputStream;
 import java.util.*;
@@ -49,6 +50,32 @@ public class GameUtils {
                 System.out.println("Invalid entry!");
             }
         }
+    }
+
+    public static void displayRoundPool(Map<Player, Card> roundPool) {
+        System.out.print("ROUND POOL\n-> ");
+        int i = 0;
+        for (Map.Entry<Player, Card> entry : roundPool.entrySet()) {
+            if (i++ == 4) System.out.print("\n   ");
+            System.out.printf("P%d: %s  ", entry.getKey().playerNo(), entry.getValue().toString());
+        }
+        System.out.println("\n");
+    }
+
+    public static void displayDeck(String message, Deck deck) {
+        System.out.println(message);
+
+        for (int i = 0; i < deck.cards().size(); i++) {
+            String card = deck.cards().get(i).toString();
+            String visibleCard = card.replaceAll("\u001B\\[[;\\d]*m", "");
+            System.out.print(card);
+            System.out.print(" ".repeat(Math.max(0, 6 - visibleCard.length())));
+
+            if ((i + 1) % 13 == 0 || i == deck.cards().size() - 1) {
+                System.out.println();
+            }
+        }
+        System.out.println();
     }
 
     public static Deck loadDeckFile(InputStream inputFile) {
