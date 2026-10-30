@@ -1,7 +1,7 @@
 package com.svi;
 
-import com.svi.model.Game;
-import com.svi.util.GameUtils;
+import com.svi.models.Game;
+import com.svi.utils.GameUtils;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package com.svi.cardenum;
+package com.svi.enums;
 
 /**
  * Represents the Rank of a Card.

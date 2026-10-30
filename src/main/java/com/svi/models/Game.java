@@ -1,7 +1,7 @@
-package com.svi.model;
+package com.svi.models;
 
 import module java.base;
-import com.svi.util.GameUtils;
+import com.svi.utils.GameUtils;
 
 public class Game {
     private final ArrayList<Player> players;
