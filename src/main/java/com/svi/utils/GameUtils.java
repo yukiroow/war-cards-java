@@ -71,10 +71,10 @@ public class GameUtils {
                     case "n", "no" -> {
                         return false;
                     }
-                    default -> System.out.println("Invalid entry.");
+                    default -> System.out.println("Entry must only be y/yes or n/no.");
                 }
             } catch (NoSuchElementException nsee) {
-                System.out.println("Invalid entry.");
+                System.out.println("Entry must only be y/yes or n/no.");
             }
         }
     }
@@ -137,7 +137,7 @@ public class GameUtils {
             scanner = new Scanner(inputFile);
             rawFile = scanner.nextLine();
         } catch (NoSuchElementException nsee) {
-            System.out.println("File input.txt was not found. Please verify resources directory.");
+            System.out.println("File input.txt was not found.\nPlease verify resources directory.");
             System.exit(0);
         }
 
@@ -170,14 +170,14 @@ public class GameUtils {
                 rankVal = Rank.valueOf(tempRank);
                 tempCard = new Card(rankVal, suitVal);
             } catch (IllegalArgumentException iae) {
-                System.out.println("Illegal Card detected. Please verify the input.txt file and reload.");
+                System.out.println("Illegal characters have been detected in the File.\nPlease verify the input.txt file and reload.");
                 System.exit(0);
             }
             parsedCards.add(tempCard);
         }
 
         if (!validateLoadedDeck(parsedCards)) {
-            System.out.println("There was a problem with the loaded deck. Please verify the input.txt file and reload.");
+            System.out.println("There was a discrepancy in the amount of Cards in the loaded Deck.\nPlease verify the input.txt file and reload.");
             System.exit(0);
         }
 
