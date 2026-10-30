@@ -28,7 +28,7 @@ public class Game {
         qtyShuffle = GameUtils.readGameSetting("Enter number of shuffles: ", 2, keyInput);
         System.out.println("-------------------------------------------------------------------------------");
 
-        for (int i = 0; i < qtyShuffle; i++) {
+        for (int i = 0; i < qtyShuffle % 8; i++) {
             shuffledDeck = Deck.perfectShuffleDeck(shuffledDeck);
         }
         decks = Deck.splitDeck(shuffledDeck, qtyPlayer);
