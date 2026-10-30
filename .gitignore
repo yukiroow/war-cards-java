@@ -4,10 +4,10 @@ out/
 !**/src/test/**/out/
 .kotlin
 .idea
-src/resources/META-INF
+src/main/resources/META-INF
 docs/
 target
-war-cards-java.iml
+harrydom-war-cards.iml
 
 ### Eclipse ###
 .apt_generated
