@@ -4,7 +4,8 @@ out/
 !**/src/test/**/out/
 .kotlin
 .idea
-src/META-INF
+src/resources/META-INF
+docs/
 target
 war-cards-java.iml
 
