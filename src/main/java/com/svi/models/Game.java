@@ -122,6 +122,7 @@ public class Game {
         }
         GameUtils.displayRoundPool(roundPool);
 
+        // getKey() returns the Player reference, getValue() returns the Card reference
         Map.Entry<Player, Card> roundWinner = evaluateWinner(roundPool);
         System.out.println("Round Winner is Player " + (roundWinner.getKey().playerNo()) + " with Card " + roundWinner.getValue());
 
@@ -129,6 +130,7 @@ public class Game {
         int qtyRemainingPlayer = players.size();
 
         for (int i = 0; i < qtyRemainingPlayer; i++) {
+            // Extract index round-robin using modulo operator and use as Map getter
             Player player = players.get((winnerIndex + i) % qtyRemainingPlayer);
             collectableCards.add(roundPool.get(player));
         }
@@ -146,6 +148,7 @@ public class Game {
      * </p>
      */
     private void doRoundCleanup() {
+        // use custom filter to determine removal condition in player list
         players.removeIf(player -> {
             if (player.deck().cards().isEmpty()) {
                 System.out.println("Player " + player.playerNo() + " has been ELIMINATED");
@@ -176,6 +179,12 @@ public class Game {
             return null;
         }
 
-        return roundPool.entrySet().stream().max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue())).orElse(null);
+        // Extract the stream from the roundPool map's entry set and
+        // apply a Max filter with the compare() method defined in
+        // the Card class
+        return roundPool.entrySet()
+                .stream()
+                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
+                .orElse(null);
     }
 }

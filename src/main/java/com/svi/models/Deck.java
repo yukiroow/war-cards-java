@@ -53,6 +53,7 @@ public record Deck(ArrayList<Card> cards) {
         }
 
         for (int i = 0; i < totalCards; i++) {
+            // Extract index round-robin using modulo operator
             int playerIndex = i % qtyPlayers;
             decks.get(playerIndex).cards().add(deck.cards().get(i));
         }

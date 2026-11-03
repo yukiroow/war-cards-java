@@ -121,7 +121,7 @@ public class GameUtils {
             String card = deck.cards().get(i).toString();
             String visibleCard = card.replaceAll("\u001B\\[[;\\d]*m", "");
             System.out.print(card);
-            System.out.print(" ".repeat(Math.max(0, 6 - visibleCard.length())));
+            System.out.print(" ".repeat(Math.max(0, 6 - visibleCard.length()))); // Padding
 
             if ((i + 1) % 13 == 0 || i == deck.cards().size() - 1) {
                 System.out.println();
@@ -218,6 +218,7 @@ public class GameUtils {
             return false;
         }
 
+        // Instantiating a HashSet from the list would eliminate duplicates
         return new HashSet<>(parsedCards).size() == 52;
     }
 }
