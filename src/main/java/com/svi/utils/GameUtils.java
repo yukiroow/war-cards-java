@@ -165,21 +165,10 @@ public class GameUtils {
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
-            Card tempCard = null;
             Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
-            String tempRank = innerTokenizer.nextToken();
-            Rank rankVal;
-            try {
-                rankVal = Rank.fromInt(Integer.parseInt(tempRank));
-                tempCard = new Card(rankVal, suitVal);
-            } catch (NumberFormatException nfe) {
-                rankVal = Rank.valueOf(tempRank);
-                tempCard = new Card(rankVal, suitVal);
-            } catch (IllegalArgumentException iae) {
-                System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
-                System.exit(0);
-            }
-            parsedCards.add(tempCard);
+            String rawRank = innerTokenizer.nextToken();
+            Card currCard = parseCard(suitVal, rawRank);
+            parsedCards.add(currCard);
         }
 
         if (!validateLoadedDeck(parsedCards)) {
@@ -188,6 +177,29 @@ public class GameUtils {
         }
 
         return new Deck(parsedCards);
+    }
+
+    /**
+     * Returns a Card object constructed from a given Suit value and rank String.
+     *
+     * @param suitVal the given Suit value
+     * @param rawRank the given rank String
+     * @return the constructed Card
+     */
+    private static Card parseCard(Suit suitVal, String rawRank) {
+        Card tempCard = null;
+        Rank rankVal;
+        try {
+            rankVal = Rank.fromInt(Integer.parseInt(rawRank));
+            tempCard = new Card(rankVal, suitVal);
+        } catch (NumberFormatException nfe) {
+            rankVal = Rank.valueOf(rawRank);
+            tempCard = new Card(rankVal, suitVal);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
+            System.exit(0);
+        }
+        return tempCard;
     }
 
     /**
