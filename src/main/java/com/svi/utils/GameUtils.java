@@ -31,46 +31,46 @@ public class GameUtils {
      *      <li>A type {@code 2} setting's integer value must be at least 1.</li>
      * </ul>
      *
-     * @param prompt   the message prompt
-     * @param type     the given type
-     * @param keyInput the Scanner object for user input
+     * @param prompt        the message prompt
+     * @param type          the given type
+     * @param keyboardInput the Scanner object for user input
      * @return the integer value
      */
-    public static int readGameSetting(String prompt, int type, Scanner keyInput) {
-        int qty;
+    public static int readGameSetting(String prompt, int type, Scanner keyboardInput) {
+        int inputNum;
         while (true) {
             System.out.print(prompt + "\n> ");
             try {
-                qty = Integer.parseInt(keyInput.nextLine().trim());
+                inputNum = Integer.parseInt(keyboardInput.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("Entry must be a number. Please try again.");
                 continue;
             }
-            if (type == 1 && (qty < 2 || qty > 8)) {
+            if (type == 1 && (inputNum < 2 || inputNum > 8)) {
                 System.out.println("There should be at least 2 players and at most 8. Please try again.");
                 continue;
             }
-            if (type == 2 && qty < 1) {
+            if (type == 2 && inputNum < 1) {
                 System.out.println("Entry must be at least 1. Please try again.");
                 continue;
             }
             break;
         }
-        return qty;
+        return inputNum;
     }
 
     /**
      * This prompts the user to restart the game.
      *
-     * @param keyInput the Scanner object for user input
+     * @param keyboardInput the Scanner object for user input
      * @return {@code true} if input is {@code y} or {@code yes}
      * {@code false} if input is {@code n} or {@code no}
      */
-    public static boolean readPlayAgain(Scanner keyInput) {
+    public static boolean readPlayAgain(Scanner keyboardInput) {
         while (true) {
             System.out.print("Do you want to play again (y/n)?\n> ");
             try {
-                switch (keyInput.nextLine().trim().toLowerCase()) {
+                switch (keyboardInput.nextLine().trim().toLowerCase()) {
                     case "y", "yes" -> {
                         return true;
                     }
@@ -97,9 +97,9 @@ public class GameUtils {
     public static void displayRoundPool(Map<Player, Card> roundPool) {
         System.out.print("ROUND POOL\n-> ");
         int i = 0;
-        for (Map.Entry<Player, Card> entry : roundPool.entrySet()) {
+        for (Map.Entry<Player, Card> roundPoolEntry : roundPool.entrySet()) {
             if (i++ == 4) System.out.print("\n   ");
-            System.out.printf("P%d: %s  ", entry.getKey().playerNo(), entry.getValue().toString());
+            System.out.printf("P%d: %s  ", roundPoolEntry.getKey().playerNo(), roundPoolEntry.getValue().toString());
         }
         System.out.println("\n");
     }
@@ -137,11 +137,11 @@ public class GameUtils {
      * @return the Deck object parsed from the file
      */
     public static Deck loadDeckFile(InputStream inputFile) {
-        Scanner scanner;
+        Scanner fileScanner;
         String rawFile = "";
         try {
-            scanner = new Scanner(inputFile);
-            rawFile = scanner.nextLine();
+            fileScanner = new Scanner(inputFile);
+            rawFile = fileScanner.nextLine();
         } catch (NoSuchElementException nsee) {
             System.out.println("File input.txt was not found.\nPlease verify resources directory.");
             System.exit(0);
@@ -176,14 +176,14 @@ public class GameUtils {
                 rankVal = Rank.valueOf(tempRank);
                 tempCard = new Card(rankVal, suitVal);
             } catch (IllegalArgumentException iae) {
-                System.out.println("Illegal characters have been detected in the File.\nPlease verify the input.txt file and reload.");
+                System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
                 System.exit(0);
             }
             parsedCards.add(tempCard);
         }
 
         if (!validateLoadedDeck(parsedCards)) {
-            System.out.println("There was a discrepancy in the amount of Cards in the loaded Deck.\nPlease verify the input.txt file and reload.");
+            System.out.println("There was a discrepancy in the amount of Cards loaded.\nPlease verify the input.txt file and reload.");
             System.exit(0);
         }
 

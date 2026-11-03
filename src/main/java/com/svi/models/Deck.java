@@ -21,7 +21,7 @@ public record Deck(ArrayList<Card> cards) {
      * @param deck the given Deck to be shuffled.
      * @return the shuffled Deck.
      */
-    public static Deck perfectShuffleDeck(Deck deck) {
+    public static Deck doFaroShuffle(Deck deck) {
         int mid = deck.cards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
         ArrayList<Card> firstHalf = new ArrayList<>(deck.cards().subList(0, mid));

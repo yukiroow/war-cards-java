@@ -23,14 +23,14 @@ public class Main {
      */
     static void main() {
         try {
-            Scanner keyInput = new Scanner(System.in);
+            Scanner keyboardInput = new Scanner(System.in);
             Game warCards;
             boolean gameRunning = true;
             while (gameRunning) {
                 warCards = new Game();
-                warCards.initializeGame(keyInput);
+                warCards.initializeGame(keyboardInput);
                 warCards.startGameLoop();
-                gameRunning = GameUtils.readPlayAgain(keyInput);
+                gameRunning = GameUtils.readPlayAgain(keyboardInput);
             }
             System.out.println("Thank you for playing War Cards!");
         } catch (Exception e) {

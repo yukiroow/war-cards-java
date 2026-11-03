@@ -15,9 +15,9 @@ import com.svi.utils.GameUtils;
  */
 public class Game {
     private final ArrayList<Player> players;
-    private final Deck parsedDeck;
+    private final Deck originalDeck;
     private int rounds;
-    private boolean winner;
+    private boolean hasWinner;
 
     /**
      * Construct an instance of the War Card Game.
@@ -27,10 +27,10 @@ public class Game {
      * </p>
      */
     public Game() {
-        parsedDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
+        originalDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
         players = new ArrayList<>();
         rounds = 1;
-        winner = false;
+        hasWinner = false;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Game {
     public void initializeGame(Scanner keyInput) {
         ArrayList<Deck> decks;
         int qtyPlayer, qtyShuffle;
-        Deck shuffledDeck = new Deck(parsedDeck.cards());
+        Deck shuffledDeck = new Deck(originalDeck.cards());
 
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("Welcome to Ward Cards!");
@@ -61,14 +61,14 @@ public class Game {
         System.out.println("-------------------------------------------------------------------------------");
 
         for (int i = 0; i < qtyShuffle % 8; i++) {
-            shuffledDeck = Deck.perfectShuffleDeck(shuffledDeck);
+            shuffledDeck = Deck.doFaroShuffle(shuffledDeck);
         }
         decks = Deck.splitDeck(shuffledDeck, qtyPlayer);
         for (int i = 0; i < decks.size(); i++) {
             players.add(new Player((i + 1), decks.get(i)));
         }
 
-        GameUtils.displayDeck("Original Deck", parsedDeck);
+        GameUtils.displayDeck("Original Deck", originalDeck);
         GameUtils.displayDeck("Shuffled Deck", shuffledDeck);
         System.out.println("-------------------------------------------------------------------------------");
     }
@@ -87,7 +87,7 @@ public class Game {
      * </ul>
      */
     public void startGameLoop() {
-        while (!winner) {
+        while (!hasWinner) {
             Map<Player, Card> roundPool = new LinkedHashMap<>();
             List<Card> collectableCards = new ArrayList<>();
 
@@ -156,7 +156,7 @@ public class Game {
 
         if (players.size() < 2) {
             System.out.println("Player " + players.getFirst().playerNo() + " has WON the game");
-            winner = true;
+            hasWinner = true;
         }
         System.out.println("-------------------------------------------------------------------------------");
     }
