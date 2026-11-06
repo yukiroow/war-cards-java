@@ -1,7 +1,7 @@
-package com.svi.models;
+package com.svi.warcards.models;
 
-import com.svi.enums.Rank;
-import com.svi.enums.Suit;
+import com.svi.warcards.enums.Rank;
+import com.svi.warcards.enums.Suit;
 
 /**
  * Represents a Card in the War Cards game.

@@ -1,4 +1,4 @@
-package com.svi.enums;
+package com.svi.warcards.enums;
 
 /**
  * Represents the Rank of a Card.

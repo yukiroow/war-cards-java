@@ -1,4 +1,4 @@
-package com.svi.models;
+package com.svi.warcards.models;
 
 import java.util.ArrayList;
 import java.util.List;

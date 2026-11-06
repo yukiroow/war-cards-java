@@ -1,10 +1,10 @@
-package com.svi.utils;
+package com.svi.warcards.utils;
 
-import com.svi.enums.Rank;
-import com.svi.enums.Suit;
-import com.svi.models.Card;
-import com.svi.models.Deck;
-import com.svi.models.Player;
+import com.svi.warcards.enums.Rank;
+import com.svi.warcards.enums.Suit;
+import com.svi.warcards.models.Card;
+import com.svi.warcards.models.Deck;
+import com.svi.warcards.models.Player;
 
 import java.io.InputStream;
 import java.util.*;

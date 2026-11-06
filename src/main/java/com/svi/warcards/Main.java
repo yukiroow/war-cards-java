@@ -1,7 +1,7 @@
-package com.svi;
+package com.svi.warcards;
 
-import com.svi.models.Game;
-import com.svi.utils.GameUtils;
+import com.svi.warcards.models.Game;
+import com.svi.warcards.utils.GameUtils;
 
 import java.util.Scanner;
 

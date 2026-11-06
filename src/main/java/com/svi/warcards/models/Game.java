@@ -1,7 +1,7 @@
-package com.svi.models;
+package com.svi.warcards.models;
 
 import module java.base;
-import com.svi.utils.GameUtils;
+import com.svi.warcards.utils.GameUtils;
 
 /**
  * Represents an instance of the War Card Game.
