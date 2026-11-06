@@ -61,7 +61,7 @@ public class Game {
         System.out.println("-------------------------------------------------------------------------------");
 
         for (int i = 0; i < qtyShuffle % 8; i++) {
-            shuffledDeck = Deck.doFaroShuffle(shuffledDeck);
+            shuffledDeck = Deck.doOutFaroShuffle(shuffledDeck);
         }
         decks = Deck.splitDeck(shuffledDeck, qtyPlayer);
         for (int i = 0; i < decks.size(); i++) {

@@ -15,13 +15,14 @@ public record Deck(ArrayList<Card> cards) {
      * Returns a new instance of a shuffled Deck from the given Deck.
      *
      * <p>
-     * The deck is shuffled should through Faro shuffle (Perfect shuffling), where the deck is split into halves and a card is taken from each split alternately.
+     * The deck is shuffled should through Out-Faro shuffle, where the deck is split into halves and a card is taken from each split alternately.
+     * Out-Faro means that the top Card stays on top.
      * </p>
      *
      * @param deck the given Deck to be shuffled.
      * @return the shuffled Deck.
      */
-    public static Deck doFaroShuffle(Deck deck) {
+    public static Deck doOutFaroShuffle(Deck deck) {
         int mid = deck.cards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
         ArrayList<Card> firstHalf = new ArrayList<>(deck.cards().subList(0, mid));
