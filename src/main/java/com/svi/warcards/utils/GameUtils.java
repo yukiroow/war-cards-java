@@ -37,7 +37,7 @@ public class GameUtils {
      * @return the integer value
      */
     public static int readGameSetting(String prompt, int type, Scanner keyboardInput) {
-        int inputNum;
+        int inputNum = 0;
         while (true) {
             System.out.print(prompt + "\n> ");
             try {
@@ -45,6 +45,9 @@ public class GameUtils {
             } catch (NumberFormatException e) {
                 System.out.println("Entry must be a number. Please try again.");
                 continue;
+            } catch (NoSuchElementException nsee) {
+                System.out.println("Scanner input stream has been closed. The game will now exit.");
+                System.exit(0);
             }
             if (type == 1 && (inputNum < 2 || inputNum > 8)) {
                 System.out.println("There should be at least 2 players and at most 8. Please try again.");
@@ -80,7 +83,8 @@ public class GameUtils {
                     default -> System.out.println("Entry must only be y/yes or n/no.");
                 }
             } catch (NoSuchElementException nsee) {
-                System.out.println("Entry must only be y/yes or n/no.");
+                System.out.println("Scanner input stream has been closed. The game will now exit.");
+                System.exit(0);
             }
         }
     }
