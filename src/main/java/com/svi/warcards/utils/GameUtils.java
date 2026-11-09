@@ -200,11 +200,11 @@ public class GameUtils {
         Rank rankVal;
         try {
             suitVal = Suit.valueOf(rawSuit);
-            rankVal = Rank.fromInt(Integer.parseInt(rawRank));
-            tempCard = new Card(rankVal, suitVal);
-        } catch (NumberFormatException nfe) {
-            suitVal = Suit.valueOf(rawSuit);
-            rankVal = Rank.valueOf(rawRank);
+            try {
+                rankVal = Rank.fromInt(Integer.parseInt(rawRank));
+            } catch (NumberFormatException nfe) {
+                rankVal = Rank.valueOf(rawRank);
+            }
             tempCard = new Card(rankVal, suitVal);
         } catch (IllegalArgumentException iae) {
             System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
