@@ -3,6 +3,8 @@ package com.svi.warcards.models;
 import com.svi.warcards.enums.Rank;
 import com.svi.warcards.enums.Suit;
 
+import java.util.Objects;
+
 /**
  * Represents a Card in the War Cards game.
  *
@@ -93,5 +95,30 @@ public class Card {
      */
     public int getSuit() {
         return suit.getValue();
+    }
+
+    /**
+     * Compares the memory address and Card-Suit of the given card.
+     *
+     * @param o the reference object with which to compare.
+     * @return {@code true} if this Card is equal to given object.
+     * {@code false} if this Card is not equal to given object.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return rank == card.rank && suit == card.suit;
+    }
+
+    /**
+     * Returns a Hash generated from the Rank and Suit to ensure Card integrity.
+     *
+     * @return the generated hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, suit);
     }
 }

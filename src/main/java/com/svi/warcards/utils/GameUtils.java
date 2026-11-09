@@ -173,7 +173,7 @@ public class GameUtils {
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
-            Suit suitVal = Suit.valueOf(innerTokenizer.nextToken().trim());
+            String suitVal = innerTokenizer.nextToken().trim();
             String rawRank = innerTokenizer.nextToken().trim();
             Card currCard = parseCard(suitVal, rawRank);
             parsedCards.add(currCard);
@@ -188,19 +188,22 @@ public class GameUtils {
     }
 
     /**
-     * Returns a Card object constructed from a given Suit value and rank String.
+     * Returns a Card object constructed from a given Suit and rank String.
      *
-     * @param suitVal the given Suit value
+     * @param rawSuit the given Suit String
      * @param rawRank the given rank String
      * @return the constructed Card
      */
-    private static Card parseCard(Suit suitVal, String rawRank) {
+    private static Card parseCard(String rawSuit, String rawRank) {
         Card tempCard = null;
+        Suit suitVal;
         Rank rankVal;
         try {
+            suitVal = Suit.valueOf(rawSuit);
             rankVal = Rank.fromInt(Integer.parseInt(rawRank));
             tempCard = new Card(rankVal, suitVal);
         } catch (NumberFormatException nfe) {
+            suitVal = Suit.valueOf(rawSuit);
             rankVal = Rank.valueOf(rawRank);
             tempCard = new Card(rankVal, suitVal);
         } catch (IllegalArgumentException iae) {
@@ -226,7 +229,12 @@ public class GameUtils {
             return false;
         }
 
-        // Instantiating a HashSet from the list would eliminate duplicates
-        return new HashSet<>(parsedCards).size() == 52;
+        List<Card> filteredCards = new ArrayList<>(parsedCards);
+
+        filteredCards = filteredCards.stream()
+                .distinct()
+                .toList();
+
+        return filteredCards.size() == 52;
     }
 }
