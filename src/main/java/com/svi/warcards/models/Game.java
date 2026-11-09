@@ -27,10 +27,34 @@ public class Game {
      * </p>
      */
     public Game() {
-        originalDeck = GameUtils.loadDeckFile(Game.class.getResourceAsStream("/input.txt"));
+        originalDeck = GameUtils.loadDeckFile("/input.txt");
         players = new ArrayList<>();
         rounds = 1;
         hasWinner = false;
+    }
+
+    /**
+     * This returns the Map Entry of the winner in the round pool Map object.
+     *
+     * <p>
+     * The winning entry is determined by finding the entry with the highest card value in the round pool. Card values are compared using the {@link Card#compare(Card, Card)} method.
+     * </p>
+     *
+     * @param roundPool the round pool
+     * @return the Map Entry of the winner
+     */
+    private static Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> roundPool) {
+        if (roundPool == null || roundPool.isEmpty()) {
+            return null;
+        }
+
+        // Extract the stream from the roundPool map's entry set and
+        // apply a Max filter with the compare() method defined in
+        // the Card class
+        return roundPool.entrySet()
+                .stream()
+                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
+                .orElse(null);
     }
 
     /**
@@ -123,7 +147,7 @@ public class Game {
         GameUtils.displayRoundPool(roundPool);
 
         // getKey() returns the Player reference, getValue() returns the Card reference
-        Map.Entry<Player, Card> roundWinner = evaluateWinner(roundPool);
+        Map.Entry<Player, Card> roundWinner = Game.evaluateWinner(roundPool);
         System.out.println("Round Winner is Player " + (roundWinner.getKey().playerNo()) + " with Card " + roundWinner.getValue());
 
         int winnerIndex = players.indexOf(roundWinner.getKey());
@@ -162,29 +186,5 @@ public class Game {
             hasWinner = true;
         }
         System.out.println("-------------------------------------------------------------------------------");
-    }
-
-    /**
-     * This returns the Map Entry of the winner in the round pool Map object.
-     *
-     * <p>
-     * The winning entry is determined by finding the entry with the highest card value in the round pool. Card values are compared using the {@link Card#compare(Card, Card)} method.
-     * </p>
-     *
-     * @param roundPool the round pool
-     * @return the Map Entry of the winner
-     */
-    private Map.Entry<Player, Card> evaluateWinner(Map<Player, Card> roundPool) {
-        if (roundPool == null || roundPool.isEmpty()) {
-            return null;
-        }
-
-        // Extract the stream from the roundPool map's entry set and
-        // apply a Max filter with the compare() method defined in
-        // the Card class
-        return roundPool.entrySet()
-                .stream()
-                .max((cardA, cardB) -> Card.compare(cardA.getValue(), cardB.getValue()))
-                .orElse(null);
     }
 }

@@ -133,16 +133,20 @@ public class GameUtils {
     /**
      * This returns a Deck object parsed from the given input file.
      *
-     * @param inputFile the InputStream of the input file
+     * @param inputFileName the InputStream of the input file
      * @return the Deck object parsed from the file
      */
-    public static Deck loadDeckFile(InputStream inputFile) {
+    public static Deck loadDeckFile(String inputFileName) {
         Scanner fileScanner;
         String rawFile = "";
         try {
-            fileScanner = new Scanner(inputFile);
+            InputStream rawFileStream = GameUtils.class.getResourceAsStream(inputFileName);
+            fileScanner = new Scanner(Objects.requireNonNull(rawFileStream));
             rawFile = fileScanner.nextLine();
         } catch (NoSuchElementException nsee) {
+            System.out.println("The input.txt file is empty.\nPlease verify resources directory.");
+            System.exit(0);
+        } catch (NullPointerException npe) {
             System.out.println("File input.txt was not found.\nPlease verify resources directory.");
             System.exit(0);
         }
@@ -165,8 +169,8 @@ public class GameUtils {
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
-            Suit suitVal = Suit.valueOf(innerTokenizer.nextToken());
-            String rawRank = innerTokenizer.nextToken();
+            Suit suitVal = Suit.valueOf(innerTokenizer.nextToken().trim());
+            String rawRank = innerTokenizer.nextToken().trim();
             Card currCard = parseCard(suitVal, rawRank);
             parsedCards.add(currCard);
         }
